@@ -9,8 +9,8 @@ from app.clickup_client import ClickUpClient
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Token for SSE authentication
-TOKEN = os.getenv("TOKEN", "default-token")
+# Token for SSE authentication - Use API_TOKEN as provided by user
+TOKEN = os.getenv("API_TOKEN", os.getenv("TOKEN", "default-token"))
 
 # Initialize FastMCP
 mcp = FastMCP("ClickUp MCP Server", sse_path="/sse", message_path="/messages")
@@ -54,6 +54,10 @@ async def update_task(task_id: str, name: Optional[str] = None, description: Opt
 
 # Initialize FastAPI app
 app = FastAPI()
+
+@app.get("/")
+async def root():
+    return {"message": "ClickUp MCP Server is running", "endpoints": ["/health", "/sse"]}
 
 @app.get("/health")
 async def health():

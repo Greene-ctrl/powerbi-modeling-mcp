@@ -4,9 +4,10 @@ from typing import Any, Dict, List, Optional
 
 class ClickUpClient:
     def __init__(self, api_key: Optional[str] = None):
-        self.api_key = api_key or os.getenv("CLICKUP_API_KEY")
+        # Use CLICKUP_API_TOKEN as provided by user
+        self.api_key = api_key or os.getenv("CLICKUP_API_TOKEN") or os.getenv("CLICKUP_API_KEY")
         if not self.api_key:
-            raise ValueError("CLICKUP_API_KEY must be set")
+            raise ValueError("CLICKUP_API_TOKEN must be set")
         self.base_url = "https://api.clickup.com/api/v2"
         self.headers = {
             "Authorization": self.api_key,
