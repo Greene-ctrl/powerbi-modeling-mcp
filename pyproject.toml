@@ -1,0 +1,13 @@
+[project]
+name = "clickup-mcp"
+version = "0.1.0"
+description = "ClickUp MCP Server"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi",
+    "httpx",
+    "mcp[cli]",
+    "uvicorn",
+    "sse-starlette",
+]
